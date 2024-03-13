@@ -14,8 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+Route::get('/companies', [App\Http\Controllers\CompanyController::class, 'index']);
+Route::get('/companies/{company}', [App\Http\Controllers\CompanyController::class, 'show']);
+
+Route::get('/employees', [App\Http\Controllers\EmployeeController::class, 'index']);
+Route::get('/employees/{employee}', [App\Http\Controllers\EmployeeController::class, 'show']);
+
 
 Auth::routes([
     'register' => false,
