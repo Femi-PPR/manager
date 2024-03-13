@@ -13,7 +13,9 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
+        return view("company.index", [
+            "companies" => Company::all()->sortBy('name'),
+        ]);
     }
 
     /**
@@ -37,7 +39,9 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        //
+        return view("company.show", [
+            "company" => $company,
+        ]);
     }
 
     /**

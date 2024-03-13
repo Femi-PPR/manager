@@ -13,7 +13,9 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        //
+        return view("employee.index", [
+            "employees" => Employee::all()->sortBy(['first_name', 'last_name']),
+        ]);
     }
 
     /**
@@ -37,7 +39,9 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        //
+        return view("employee.show", [
+            "employee" => $employee,
+        ]);
     }
 
     /**
