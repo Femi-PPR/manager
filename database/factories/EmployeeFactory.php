@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Company;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Employee>
@@ -17,7 +18,11 @@ class EmployeeFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "first_name" => fake()->firstName(),
+            "last_name" => fake()->lastName(),
+            "company_id" => Company::factory(),
+            "email" => fake()->safeEmail(),
+            "telephone" => fake()->phoneNumber(),
         ];
     }
 }
