@@ -1,0 +1,17 @@
+.company-list{
+    .list-group-item{
+        span{
+            visibility: hidden;
+        }
+
+        &:hover span{
+            visibility: visible;
+        }
+    }
+}
+
+.welcome-cards{
+    .card-img-top{
+        height: 350px;
+    }
+}
