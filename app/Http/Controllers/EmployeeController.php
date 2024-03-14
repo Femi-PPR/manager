@@ -14,9 +14,6 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        DB::listen(function ($query) {
-            logger($query->sql, $query->bindings);
-        });
         return view("employee.index", [
             "employees" => Employee::with('company')->get()->sortBy(['first_name', 'last_name']),
         ]);
@@ -27,7 +24,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
+        return view("employee.create");
     }
 
     /**
@@ -35,7 +32,8 @@ class EmployeeController extends Controller
      */
     public function store(StoreEmployeeRequest $request)
     {
-        //
+        Employee::create($request->validated());
+        return redirect()->route("employee.index");
     }
 
     /**
@@ -43,9 +41,6 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        DB::listen(function ($query) {
-            logger($query->sql, $query->bindings);
-        });
         return view("employee.show", [
             "employee" => $employee,
         ]);
