@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center align-items-center g-4 welcome-cards">
+        <div class="row pt-5 justify-content-center align-items-center g-4 welcome-cards">
             <div class="col">
                 <div class="card">
                     <img class="card-img-top object-fit-cover" src="backgrounds/companies.jpg" alt="Title" />
