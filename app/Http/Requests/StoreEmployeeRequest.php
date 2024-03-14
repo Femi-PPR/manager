@@ -8,7 +8,7 @@ use Illuminate\Validation\Rule;
 class StoreEmployeeRequest extends FormRequest
 {
 
-    private const TELE_REGEX = "/^((?:\+|00)[17](?: |-)?|(?:\+|00)[1-9]\d{0,2}(?: |-)?|(?:\+|00)1-\d{3}(?: |-)?)?(0\d|([0-9]{3})|[1-9]{0,3})(?:((?: |-)[0-9]{2}){4}|((?:[0-9]{2}){4})|((?: |-)[0-9]{3}(?: |-)[0-9]{4})|([0-9]{7}))$/";
+
 
 
     /**
@@ -31,7 +31,7 @@ class StoreEmployeeRequest extends FormRequest
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'nullable|email',
-            'telephone' => ['nullable', 'regex:' . StoreEmployeeRequest::TELE_REGEX],
+            'telephone' => ['nullable', 'regex:' . FormRequest::TELE_REGEX],
             'company_id' => ['nullable', Rule::exists('companies', 'id')],
         ];
     }
