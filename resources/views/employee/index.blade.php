@@ -16,4 +16,7 @@
             @endforeach
         </div>
     </div>
+    @if (session()->has('success'))
+        <x-toast :msg="session('success')" />
+    @endif
 @endsection
