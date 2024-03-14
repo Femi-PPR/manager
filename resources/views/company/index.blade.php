@@ -3,6 +3,9 @@
 @section('content')
     <div class="container">
         <h1 class="display-3 py-4">Companies List</h1>
+        @auth
+            <a href="{{ route('company.create') }}" class="btn btn-primary mb-4"> Add New Company </a>
+        @endauth
         <div class="list-group company-list">
             @foreach ($companies as $company)
                 <a href="/companies/{{ $company->id }}" 
@@ -13,4 +16,8 @@
             @endforeach
         </div>
     </div>
+    
+    @if (session()->has('success'))
+        <x-toast :msg="session('success')" />
+    @endif
 @endsection
