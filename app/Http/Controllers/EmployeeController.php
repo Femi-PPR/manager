@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 use App\Models\Employee;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
@@ -13,8 +14,11 @@ class EmployeeController extends Controller
      */
     public function index()
     {
+        DB::listen(function ($query) {
+            logger($query->sql, $query->bindings);
+        });
         return view("employee.index", [
-            "employees" => Employee::all()->sortBy(['first_name', 'last_name']),
+            "employees" => Employee::with('company')->get()->sortBy(['first_name', 'last_name']),
         ]);
     }
 
@@ -39,6 +43,9 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
+        DB::listen(function ($query) {
+            logger($query->sql, $query->bindings);
+        });
         return view("employee.show", [
             "employee" => $employee,
         ]);
