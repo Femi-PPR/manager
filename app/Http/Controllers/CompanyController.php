@@ -23,7 +23,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        return view("company.create");
     }
 
     /**
@@ -31,7 +31,12 @@ class CompanyController extends Controller
      */
     public function store(StoreCompanyRequest $request)
     {
-        //
+        var_dump($request->validated());
+        $path = $request->file("logo")?->store("logo");
+
+        Company::create($request->validated());
+        session()->flash("success", "You have successfully added a new company to the company list.");
+        return redirect('/companies');
     }
 
     /**
