@@ -5,7 +5,9 @@
         <div
             class="row justify-content-center align-items-center g-2"
         >
-            <div class="col-4"><img src="https://picsum.photos/900/901" class="object-fit-cover img-thumbnail w-100 h-100" alt=""></div>
+            <div class="col-4 align-self-stretch">
+                <img src="{{ empty($company->logo)? asset('backgrounds/icon-park-solid--building-two.svg') : asset('storage/' . $company->logo) }}" class="object-fit-cover img-thumbnail w-100 h-100" alt="">
+            </div>
             <div class="col-8">
                 <!-- Hover added -->
                 <div class="list-group list-group-flush">
@@ -16,7 +18,16 @@
                     @isset($company->website)  
                     <p class="list-group-item">Website: {{ $company->website }}</p>
                     @endisset
-      
+                    @auth
+                        <div class="list-group-item d-grid gap-3 d-md-flex">
+                            <a href="{{ route('company.edit', ['company' => $company->id]) }}" class="btn btn-outline-primary">Edit</a>
+                            <form action="{{ route('company.destroy', ['company' => $company->id]) }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button class="btn btn-outline-danger">Delete</button>
+                            </form>
+                        </div>
+                    @endauth
                 </div>
                 
             </div>
@@ -35,4 +46,7 @@
             @endif
         </div>
     </div>
+    @if (session()->has('success'))
+        <x-toast :msg="session('success')" />
+    @endif
 @endsection
