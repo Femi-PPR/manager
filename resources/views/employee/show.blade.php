@@ -5,7 +5,7 @@
         <div
             class="row justify-content-center align-items-center g-2"
         >
-            <div class="col-4"><img src="https://picsum.photos/900/901" class="object-fit-cover w-100 h-100" alt=""></div>
+            <div class="col-4"><img src="{{ asset('backgrounds/raphael--employee.svg') }}" class="object-fit-cover img-thumbnail w-100 h-100" alt=""></div>
             <div class="col-8">
                 <!-- Hover added -->
                 <div class="list-group list-group-flush">
