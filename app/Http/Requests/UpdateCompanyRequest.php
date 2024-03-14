@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
 
 class UpdateCompanyRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class UpdateCompanyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return auth()->check();
     }
 
     /**
@@ -22,7 +24,10 @@ class UpdateCompanyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required',
+            'email' => 'nullable|email',
+            'website' => 'nullable|url',
+            'logo' => ['image', Rule::dimensions()->minWidth(100)->minHeight(100)],
         ];
     }
 }
