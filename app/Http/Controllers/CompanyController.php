@@ -80,7 +80,7 @@ class CompanyController extends Controller
     public function destroy(Company $company)
     {
         $company->delete();
-        session()->flash("success", "You have successfully deleted " . $company->name . " from the company list.");
+        session()->flash("success", "You have successfully deleted " . $company->name . " from the companies list.");
         return redirect('/companies');
     }
 }
