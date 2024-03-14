@@ -31,10 +31,11 @@ class CompanyController extends Controller
      */
     public function store(StoreCompanyRequest $request)
     {
-        var_dump($request->validated());
-        $path = $request->file("logo")?->store("logo");
+        $attribute = $request->validated();
+        if (isset($attribute['logo']))
+            $attribute['logo'] = $request->file('logo')->store('logos');
 
-        Company::create($request->validated());
+        Company::create($attribute);
         session()->flash("success", "You have successfully added a new company to the company list.");
         return redirect('/companies');
     }
@@ -54,7 +55,9 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
-        //
+        return view("company.edit", [
+            "company" => $company,
+        ]);
     }
 
     /**
@@ -62,7 +65,13 @@ class CompanyController extends Controller
      */
     public function update(UpdateCompanyRequest $request, Company $company)
     {
-        //
+        $attribute = $request->validated();
+        if (isset($attribute['logo']))
+            $attribute['logo'] = $request->file('logo')->store('logos');
+
+        $company->update($attribute);
+        session()->flash("success", "You have successfully updated the information of " . $company->name . ".");
+        return redirect('/companies/' . $company->id);
     }
 
     /**
@@ -70,6 +79,8 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        //
+        $company->delete();
+        session()->flash("success", "You have successfully deleted " . $company->name . " from the company list.");
+        return redirect('/companies');
     }
 }
