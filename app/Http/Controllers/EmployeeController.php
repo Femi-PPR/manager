@@ -24,7 +24,10 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view("employee.create");
+        session(['return_to' => back()->getTargetUrl()]);
+        return view("employee.create", [
+            "company_id" => request('company_id'),
+        ]);
     }
 
     /**
@@ -33,7 +36,9 @@ class EmployeeController extends Controller
     public function store(StoreEmployeeRequest $request)
     {
         Employee::create($request->validated());
-        return redirect()->route("employee.index");
+        // session()
+        return redirect(session()->pull('return_to', route("employee.index")))
+            ->with("success", "You have successfully added a new employee to the employee list.");
     }
 
     /**
@@ -51,7 +56,9 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        //
+        return view("employee.edit", [
+            "employee" => $employee,
+        ]);
     }
 
     /**
@@ -59,7 +66,9 @@ class EmployeeController extends Controller
      */
     public function update(UpdateEmployeeRequest $request, Employee $employee)
     {
-        //
+        $employee->update($request->validated());
+        session()->flash("success", "You have successfully updated the information of " . $employee->first_name . " " . $employee->last_name . ".");
+        return redirect('/employees/' . $employee->id);
     }
 
     /**
@@ -67,6 +76,8 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        //
+        $employee->delete();
+        session()->flash("success", "You have successfully deleted " . $employee->first_name . " " . $employee->last_name . " from the employees list.");
+        return redirect()->route('employee.index');
     }
 }
