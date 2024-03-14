@@ -3,6 +3,9 @@
 @section('content')
     <div class="container">
         <h1 class="display-3 py-4">Employees List</h1>
+        @auth
+            <a href="{{ route('employee.create') }}" class="btn btn-primary mb-4"> Add New Employee </a>
+        @endauth
         <div class="list-group company-list">
             @foreach ($employees as $employee)
                 <a href="/employees/{{ $employee->id }}" 
