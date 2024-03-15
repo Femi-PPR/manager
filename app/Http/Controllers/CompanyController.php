@@ -14,7 +14,7 @@ class CompanyController extends Controller
     public function index()
     {
         return view("company.index", [
-            "companies" => Company::all()->sortBy('name'),
+            "companies" => Company::orderBy('name')->paginate(10),
         ]);
     }
 
