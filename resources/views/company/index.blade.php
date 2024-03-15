@@ -16,7 +16,9 @@
             @endforeach
         </div>
     </div>
-    
+    <div class="container pt-3">
+        {{ $companies->links() }}
+    </div>
     @if (session()->has('success'))
         <x-toast :msg="session('success')" />
     @endif
