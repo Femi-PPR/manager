@@ -3,8 +3,7 @@
 @section('content')
     <div class="container">
         <div
-            class=" row justify-content-center align-items-center g-2"
-        >
+            class=" row justify-content-center align-items-center g-2">
             <div class="col-md-4"><img src="{{ asset('backgrounds/raphael--employee.svg') }}" class="object-fit-cover img-thumbnail w-100 h-100" alt=""></div>
             <div class="col-md-8">
                 <!-- Hover added -->
@@ -34,8 +33,16 @@
                     </div>
                     @endauth
                 </div>
-                
             </div>
+        </div>
+        <h1 class="display-6 pt-5 pb-2">Employment History</h1>
+        <div class="list-group">
+            <x-employment :company="$employee->company" />
+            @if ($employee->employmentHistory->count() > 0)
+                @foreach ($employee->employmentHistory as $prevWork)
+                    <x-employment :company="$prevWork->company" :date="$prevWork->updated_at->format('jS F Y')" />
+                @endforeach
+            @endif
         </div>
     </div>
     @if (session()->has('success'))
